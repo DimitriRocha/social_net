@@ -57,8 +57,12 @@ function startProjectFolderByRequest(){
 
 	global $data;
 	
-	if (! @include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName."View.php"))
-	throw new Exception ('View file does not exist');
+	if (! @include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."view.php")){
+		throw new Exception ('View file does not exist');
+	}else{
+		@include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."main.js");
+		@include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."styles.css");
+	}
 }
 
 function startProjectSchemas(){
