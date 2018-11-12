@@ -8,8 +8,7 @@ startProjectSchemas();
 startProjectFolderByRequest();
 loadAsset("js/main.js");
 
-$viewVars = [];
-
+$data = [];
 //Declaração das funções de includes
 function loadAsset($path){
 	include(PROJECT_ROOT."assets".DIRECTORY_SEPARATOR.$path);
@@ -56,6 +55,8 @@ function startProjectFolderByRequest(){
 	$controllerInstance = $refl->newInstanceArgs();
 	call_user_func_array(array($controllerInstance, $dynamicFunc), $parameters);
 
+	global $data;
+	
 	if (! @include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName."View.php"))
 	throw new Exception ('View file does not exist');
 }
@@ -76,5 +77,8 @@ function startProjectSchemas(){
 }
 
 function set($variablesArray){
-	$viewVars = $variablesArray;
+	global $data;
+	$data = $variablesArray;
 }
+
+	
