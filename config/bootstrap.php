@@ -2,6 +2,7 @@
 //Aqui serão declarados os caminhos e variáveis globais
 loadConfig("database.php");
 loadConfig("core.php");
+loadResources();
 loadAsset("css/main.css");
 startProjectSchemas();
 startProjectFolderByRequest();
@@ -18,8 +19,14 @@ function loadConfig($path){
 	include(PROJECT_ROOT."config".DIRECTORY_SEPARATOR.$path);
 }
 
+function loadResources(){
+	include(PROJECT_ROOT."config".DIRECTORY_SEPARATOR."appController.php");
+	include(PROJECT_ROOT."config".DIRECTORY_SEPARATOR."appSchema.php");
+}
+
 function startProjectFolderByRequest(){
 	$uri = $_SERVER['REQUEST_URI'];
+    $uri = str_replace(PROJECT_PATH, "", $uri);
 	$uri = explode("/", $uri);
 	if ($uri[1] == "") {
 		$pathName = "start";
@@ -30,7 +37,6 @@ function startProjectFolderByRequest(){
 	if (! @include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."controllers".DIRECTORY_SEPARATOR.$pathName."Controller.php")){
 		throw new Exception ('Controller file does not exist');
 	}
-
 	if (isset($uri[2])) {
 		if ($uri[2] == "") {
 			$dynamicFunc = "index";
@@ -40,6 +46,7 @@ function startProjectFolderByRequest(){
 	}else{
 		$dynamicFunc = "index";
 	}
+
 	$classname = $pathName;
 	$classname .= "Controller";
 	$classname = ucfirst($classname);

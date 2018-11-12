@@ -1,14 +1,14 @@
 <?php
-class StartController{
+class StartController extends AppController{
 	function __construct(){
-		echo "Start Controller ^^";
+
 	}
 
 	public function index(){
-		echo "Started function wow";
+        echo "Start controller function index";
 	}
 
-	public function teste($first, $second){
-		echo "The test $first worked WOW $second";
+	public function teste(){
+
 	}
 }

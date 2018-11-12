@@ -1,4 +1,4 @@
 <?php
-// class StartModel(){
-//
-// }
+class StartModel extends AppSchema{
+
+}
