@@ -5,12 +5,7 @@ class StartController extends AppController{
 	}
 
 	public function index(){
-        echo "Start controller function index";
-        set(
-        	[
-        		"hello" => "world"
-        	]
-        );
+		$start = new StartSchema();       
 	}
 
 	public function teste(){
