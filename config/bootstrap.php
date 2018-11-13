@@ -5,6 +5,8 @@ loadConfig("core.php");
 loadResources();
 loadAsset("css/main.css");
 startProjectSchemas();
+startProjectCss();
+startProjectJs();
 startProjectFolderByRequest();
 loadAsset("js/main.js");
 
@@ -56,7 +58,7 @@ function startProjectFolderByRequest(){
 	call_user_func_array(array($controllerInstance, $dynamicFunc), $parameters);
 
 	global $data;
-	
+
 	if (! @include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."view.php")){
 		throw new Exception ('View file does not exist');
 	}else{
@@ -77,6 +79,24 @@ function startProjectSchemas(){
 		$name = $name[0];
 		$name = ucfirst($name);
 
+	}
+}
+
+function startProjectCss(){
+	foreach (glob(PROJECT_ROOT."assets".DIRECTORY_SEPARATOR."css".DIRECTORY_SEPARATOR."*.css") as $filepath)
+	{
+		echo "<style>";
+		include($filepath);
+		echo "</style>";
+	}
+}
+
+function startProjectJs(){
+	foreach (glob(PROJECT_ROOT."assets".DIRECTORY_SEPARATOR."js".DIRECTORY_SEPARATOR."*.js") as $filepath)
+	{
+		echo "<script>"; 
+		include($filepath);
+		echo"</script>";
 	}
 }
 
