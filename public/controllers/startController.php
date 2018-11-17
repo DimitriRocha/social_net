@@ -1,11 +1,25 @@
 <?php
 class StartController extends AppController{
-	function __construct(){
+	public $UsersSchema;
 
+	function __construct(){
+		$this->UsersSchema = new UsersSchema();
 	}
 
 	public function index(){
-		$start = new StartSchema();       
+
+		// $this->UsersSchema->insert([
+		// 	'name' => 'Teste',
+		// 	'user' => 'teste',
+		// 	'pass' => '123456'
+		// ]);
+
+		$result = $this->UsersSchema->findAll();
+
+		echo '<pre>';
+		print_r($result);
+		echo '</pre>';
+		die();
 	}
 
 	public function teste(){

@@ -1,5 +1,5 @@
 <?php
-class AppController{
+abstract class AppController{
 
     function __construct(){
 
