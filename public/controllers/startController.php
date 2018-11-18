@@ -16,10 +16,7 @@ class StartController extends AppController{
 
 		$result = $this->UsersSchema->findAll();
 
-		echo '<pre>';
-		print_r($result);
-		echo '</pre>';
-		die();
+		set([$result]);
 	}
 
 	public function teste(){

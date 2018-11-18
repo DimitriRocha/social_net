@@ -1,0 +1,4 @@
+.background-project_secondary{
+	background-color: #eeeeee;
+	min-height: calc(100vh - 56px);
+}

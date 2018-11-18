@@ -76,9 +76,6 @@ abstract class AppSchema{
 			$result = $e->getMessage();
 		}
 
-		echo '<pre>';
-		print_r($result);
-		echo '</pre>';
-		die();
+		return $result;
 	}
 }
