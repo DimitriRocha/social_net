@@ -56,7 +56,7 @@
 									<div class="post-bar">
 										<div class="post_topbar">
 											<div class="usy-dt">
-												<img src="images/resources/us-pic.png" alt="">
+												<img class="profile-postImg" src="<?php echo getImage("profile_placeholder.jpeg"); ?>" alt="">
 												<div class="usy-name">
 													<h3>John Doe</h3>
 													<span><img src="images/clock.png" alt="">3 min ago</span>
@@ -120,10 +120,6 @@
 			</div>
 		</div>
 	</main>
-
-
-
-
 	<div class="post-popup pst-pj">
 		<div class="post-project">
 			<h3>Post a project</h3>
