@@ -137,7 +137,7 @@ function startViews(){
 }
 
 function getImage($imageName){
-	return "../../../assets/images/".$imageName;
+	return "../../..".PROJECT_PATH."/assets/images/".$imageName;
 }
 
 function redirect($place){
