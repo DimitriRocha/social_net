@@ -1,7 +1,7 @@
 <?php
 define("PROJECT_ROOT", __DIR__ . DIRECTORY_SEPARATOR);
 //Adicionar caminho adicional da url caso não esteja na raiz
-define("PROJECT_PATH", DIRECTORY_SEPARATOR."social_net");
+define("PROJECT_PATH", "");
 ?>
 <?php include("config/bootstrap.php");
 ?>

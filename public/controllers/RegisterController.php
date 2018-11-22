@@ -15,10 +15,10 @@ class RegisterController extends AppController{
 			$result = $this->registerUser($_POST['name'],$_POST['user'],$_POST['pass'],$_POST['occupation']);
 
 			if ($result) {
-				header("Location: /login");
+				redirect("/login");
 			}else{
 				$_SESSION['error'];
-				header("Location: /register");
+				redirect("/register");
 			}
 		}
 		set([$result]);

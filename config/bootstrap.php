@@ -139,3 +139,8 @@ function startViews(){
 function getImage($imageName){
 	return "../../../assets/images/".$imageName;
 }
+
+function redirect($place){
+	$redirection = 'Location: '.PROJECT_PATH.$place;
+	header($redirection);
+}

@@ -11,12 +11,12 @@ class LoginController extends AppController{
 
 	public function index(){
 		if ($this->userIsLoggedIn()) {
-			header("Location: /");
+			redirect("/");
 		}
 
 		if ($_SERVER['REQUEST_METHOD'] == "POST") {
 			$this->requestUserLogin($_POST['nickname'], $_POST['pass']);
-			header('Location: /');
+			redirect("/");
 		}
 	}
 
