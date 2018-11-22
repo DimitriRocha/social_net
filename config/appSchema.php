@@ -51,7 +51,8 @@ abstract class AppSchema{
 			$condStr = " WHERE ";
 			foreach ($options['conditions'] as $key => $condition) {
 				$colString = $key;
-				$valString = addslashes($condition);
+				$valString = $condition;
+				// $valString = addslashes($condition);
 				if (!preg_match('/([\=\<\>])|(!=)/', $key)) {
 					$colString .= " =";
 				}

@@ -3,7 +3,11 @@ class StartController extends AppController{
 	public $UsersSchema;
 
 	function __construct(){
+		if (session_status() == PHP_SESSION_NONE) {
+			session_start();
+		}
 		$this->UsersSchema = new UsersSchema();
+		$this->auth();
 	}
 
 	public function index(){
