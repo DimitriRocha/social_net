@@ -6,7 +6,7 @@ loadResources();
 startProjectSchemas();
 startViews();
 
-$data = [];
+$data;
 $css;
 $scripts;
 $view;

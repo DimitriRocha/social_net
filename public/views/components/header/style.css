@@ -307,8 +307,8 @@ nav > ul > li > a:hover {
 .user-account {
 	float: right;
 	width: 110px;
-	border-left: 1px solid #bbbbff;
-	border-right: 1px solid #bbbbff;
+	/* border-left: 1px solid #bbbbff;
+	border-right: 1px solid #bbbbff; */
 	box-sizing: border-box;
 	position: relative;
 }
@@ -320,7 +320,7 @@ nav > ul > li > a:hover {
 }
 .user-account-settingss {
 	position: absolute;
-	top: 100%;
+	top: 56px;
 	right: 0;
 	width: 240px;
 	background-color: #fff;

@@ -1,3 +1,54 @@
+.btn-like{
+	cursor: pointer;
+}
+
+.btn-comment{
+	cursor: pointer;
+}
+
+.no-pd-mg{
+	padding: 0%;
+	margin: 0%;
+}
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+.imgUrl{
+	border-radius: 5px !important;
+}
+
+#img-upload{
+	width: 100%;
+	padding-top: 10px;
+}
+
+.submit-post{
+	background-color: #566684 !important;
+    color: white !important;
+}
+
+.btn-secondary{
+	background-color: #566684;
+}
+
 @media (max-width: 991px) {
 	.sgt-text span {font-size: 14px;}
 	main {padding: 20px 0 60px 0;}
@@ -12,7 +63,7 @@
 	.social_links li a {font-size: 13px;}
 	.footy-sec.mn ul li {margin-bottom: 10px;}
 	.user-pro-img > a {left: 56%;}
-	.no-pd {padding: 0;}
+	.no-pd {padding: 0; padding-left: 10px;}
 	.footy-sec ul li {margin-bottom: 10px;}
 	.cm-logo {padding-left: 0;}
 	.signin-pop::before {display: none;}
@@ -46,7 +97,7 @@
 	.forum-bar ul {float: right;}
 	.comment_box input {width: 84%;}
 	.comment_box {width: 88%;}
-	.no-pd {padding: 0;}
+	.no-pd {padding: 0; padding-left: 10px}
 	.sign-in-page {padding: 60px 0;}
 	.overview-box {width: 100%;}
 	.close-box {top: -23px;right: 2px;}
@@ -431,7 +482,7 @@ main {
 	float: left;
 	width: 100%;
 	background-color: #fff;
-	margin-bottom: 20px;
+	/* margin-bottom: 20px; */
 	border-left: 1px solid #e5e5e5;
 	border-right: 1px solid #e5e5e5;
 	border-bottom: 1px solid #e5e5e5;
@@ -1308,7 +1359,11 @@ main {
 	vertical-align: top;
 	width: 100%;
 	padding-left: 10px;
+	/* border: 1px solid #b2b2b2; */
+	margin-top: 5px;
+	/* background: #f9f9f9; */
 }
+
 .comment h3 {
 	color: #000000;
 	font-size: 16px;
@@ -1322,9 +1377,9 @@ main {
 }
 .comment span {
 	color: #b2b2b2;
-	font-size: 14px;
+	font-size: 10px;
 	display: block;
-	margin-bottom: 14px;
+	margin-bottom: 10px;
 }
 .comment p {
 	color: #686868;
@@ -1360,6 +1415,7 @@ main {
 }
 .comment_box {
 	float: left;
+	display: inline-flex;
 }
 .comment_box input {
 	width: 387px;
@@ -1373,7 +1429,7 @@ main {
 	line-height: 40px;
 	resize: none;
 }
-.comment_box form button {
+/* .comment_box form button {
 	float: right;
 	color: #fff;
 	background-color: #566684;
@@ -1385,7 +1441,7 @@ main {
 	margin-left: 10px;
 	cursor: pointer;
 	font-weight: 600;
-}
+} */
 
 /* ============== process-comm ============= */
 
@@ -2394,7 +2450,8 @@ footer {
 	top: 3px;
 }
 .la-globe {
-	color: #51a5fb;
+	/* color: #51a5fb; */
+	color: #000;	
 }
 .fa-facebook-square {
 	color: #3b5998;

@@ -20,4 +20,10 @@ abstract class AppController{
 			return false;
 		}
 	}
+
+	public function logOut(){
+		unset($_SESSION['user']);
+		unset($_SESSION['error']);
+		redirect("/");
+	}
 }

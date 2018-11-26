@@ -1,26 +1,126 @@
 $(window).on("load", function() {
     "use strict";
+  
+    //lorenzo
+    $(document).on('change', '.btn-file :file', function() {
+		var input = $(this),
+			label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
+		input.trigger('fileselect', [label]);
+		});
+
+    $('.btn-file :file').on('fileselect', function(event, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = label;
+        
+        if( input.length ) {
+            input.val(log);
+        } else {
+            if( log ) alert(log);
+        }
+    
+    });
+
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#img-upload').attr('src', e.target.result);
+            }
+            
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#imgInp").change(function(){
+        readURL(this);
+    });
+
+    $(".submit-post").on("click", function(){
+        var content = $("#newPost-description").val();
+        var imagemB64 = $("#img-upload").attr("src");
+
+        if(typeof imagemB64 == "undefined"){
+            alert("Sem imagem!");
+            return;
+        }
+
+        $.post("",{
+            postId : 0,
+            content: content,
+            image: imagemB64
+        },function(data){
+            console.log(data);
+        });
+
+        $(".post-popup.job_post").removeClass("active");
+        $(".wrapper").removeClass("overlay");        
+    });
+
+    $(".btn-comment").on("click", function(){
+        if($(".comment-sec").is(":hidden")){
+            $(".comment-sec").attr("hidden",false);;
+        } else {
+            $(".comment-sec").attr("hidden",true);;
+        }
+    });
+
+    $(".submit-comment").on("click", function(){
+        var network_posts_id = $(this).parent().prop('id');
+        var content = $(this).parent().children('.text_comment').val();
+        if(content.length == 0){
+            alert("Escreva um comentario.");
+        } else {
+            $.post("",{
+                postId: 1,
+                network_posts_id: network_posts_id,
+                content: content
+            },function(data){
+                // console.log(data);
+            });
+        }
+        $(this).parent().children('.text_comment').val("");
+    });
+
+    $(".btn-logOut").on("click", function(){
+        $.post("",{
+            postId: -1
+        },function(data){
+            console.log(data);
+        });
+    });
+    //endlorenzo
+
     //  ============= POST PROJECT POPUP FUNCTION =========
 
-    $(".post_project").on("click", function(){
-        $(".post-popup.pst-pj").addClass("active");
-        $(".wrapper").addClass("overlay");
-        return false;
-    });
-    $(".post-project > a").on("click", function(){
-        $(".post-popup.pst-pj").removeClass("active");
-        $(".wrapper").removeClass("overlay");
-        return false;
-    });
+    // $(".post_project").on("click", function(){
+    //     $(".post-popup.pst-pj").addClass("active");
+    //     $(".wrapper").addClass("overlay");
+    //     return false;
+    // });
+    // $(".post-project > a").on("click", function(){
+    //     $(".post-popup.pst-pj").removeClass("active");
+    //     $(".wrapper").removeClass("overlay");
+    //     return false;
+    // });
 
     //  ============= POST JOB POPUP FUNCTION =========
 
     $(".post-jb").on("click", function(){
+        $(".post-popup.job_post").find('input:text').val('');
+        $("#img-upload").removeAttr("src");
         $(".post-popup.job_post").addClass("active");
         $(".wrapper").addClass("overlay");
         return false;
     });
     $(".post-project > a").on("click", function(){
+        $(".post-popup.job_post").removeClass("active");
+        $(".wrapper").removeClass("overlay");
+        return false;
+    });
+
+    $(".cancel-post").on("click", function(){
         $(".post-popup.job_post").removeClass("active");
         $(".wrapper").removeClass("overlay");
         return false;
