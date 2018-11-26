@@ -21,7 +21,7 @@
 							<label for="inputPassword">Senha</label>
 						</div>
 						<button class="btn btn-lg btn-primary btn-block text-uppercase" type="submit">Entrar</button>
-						<a class="text-light" href="/register"><button class="mt-3 btn btn-lg btn-primary btn-block text-uppercase" type="button">Cadastrar</button></a>
+						<a class="text-light" href=<?php echo PROJECT_PATH."/register" ?>><button class="mt-3 btn btn-lg btn-primary btn-block text-uppercase" type="button">Cadastrar</button></a>
 					</form>
 				</div>
 			</div>
