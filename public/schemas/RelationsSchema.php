@@ -74,7 +74,7 @@ class RelationsSchema extends AppSchema{
 
 	public function refuseFriend($id){
 		$result = $this->db_con->query(
-			"DELETE `relations`
+			"DELETE FROM `relations`
 			WHERE id = $id"
 		);
 	}

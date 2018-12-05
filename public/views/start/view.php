@@ -29,7 +29,7 @@
 								</div>
 								<div class="tags-sec full-width">
 									<ul>
-										<li><a href="" title="" class="btn-logOut">Perfil</a></li>
+										<li><a href="<?php echo PROJECT_PATH."/start/profile/$data[loggedUser]" ?>" title="">Meu perfil</a></li>
 										<li><a href="" title="" class="btn-logOut">Sair</a></li>
 									</ul>
 								</div>

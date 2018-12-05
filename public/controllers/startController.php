@@ -58,7 +58,8 @@ class StartController extends AppController{
 			'dispayName' => $_SESSION['user']['name'],
 			'occupation' => $_SESSION['user']['occupation'],
 			'createPost' => true,
-			'addCurrentFriend' => false
+			'addCurrentFriend' => false,
+			'loggedUser' => $_SESSION['user']['id']
 		]);
 	}
 
@@ -88,6 +89,7 @@ class StartController extends AppController{
 			'occupation' => $profile['occupation'],
 			'createPost' => false,
 			'addCurrentFriend' => $profileId,
+			'loggedUser' => $_SESSION['user']['id']
 		]);
 	}
 
