@@ -6,16 +6,10 @@ class PostLikesSchema extends AppSchema{
 		parent::db_config();
 	}
 
-	public function insertLike($options){
-		$insertValues = array();
-
-		foreach($options as $value) {
-			$insertValues[] = $value;
-		}
-
+	public function insertLike($insertValues){
 		$pdoQuery= "SELECT * FROM post_likes
 		WHERE user_id = $insertValues[0]
-		&& network_posts_id = $insertValues[1]";
+		AND network_posts_id = $insertValues[1]";
 
 		$result = $this->db_con->query($pdoQuery)->fetchAll();
 
@@ -31,10 +25,12 @@ class PostLikesSchema extends AppSchema{
 				$result = $e->getMessage();
 			}
 
-			return $result;
+			echo json_encode(true);
 		} else {
-			return 0;
+			echo json_encode(false);
 		}
+		
+		die();
 	}
 
 }

@@ -1,3 +1,4 @@
+<?php global $data; ?>
 <header>
 	<div class="container clearfix">
 		<div class="header-data">
@@ -13,7 +14,7 @@
 			<nav>
 				<ul>
 					<li>
-						<a href="index.html" title="">
+						<a href="<?php echo PROJECT_PATH."/" ?>" title="">
 							<span><img src="<?php echo "../".getImage("icon1.png"); ?>" alt=""></span>
 							Home
 						</a>
@@ -25,34 +26,45 @@
 						</a>
 						<div class="notification-box">
 							<div class="nt-title">
-								<h4>Setting</h4>
-								<a href="#" title="">Clear all</a>
+								<a href="#" title="">Rejeitar todos</a>
 							</div>
 							<div class="nott-list">
 								<div class="notfication-details">
-									<div class="noty-user-img">
-										<img src="<?php echo "../".getImage("profilesIcon.png"); ?>" alt="">
-									</div>
-									<div class="notification-info">
-										<h3><a href="#" title="">Jassica William</a> Comment on your project.</h3>
-										<span>2 min ago</span>
-									</div><!--notification-info -->
+									<?php if (!empty($data['pendingFriends'])): ?>
+										<?php foreach ($data['pendingFriends'] as $key => $friend): ?>
+											<div class="notification-info mb-3 w-100">
+												<div class="float-left">
+													<h3><a href="<?php echo PROJECT_PATH."/start/profile/$friend[id]" ?>" title=""><?php echo $friend['name'] ?></a></h3>
+												</div>
+												<div class="float-right">
+													<a class="text-dark" href="<?php echo PROJECT_PATH."/start/acceptFriend/".$friend['relationId'] ?>">Aceitar | </a>
+													<a class="text-dark" href="<?php echo PROJECT_PATH."/start/refuseFriend/".$friend['relationId'] ?>">Recusar</a>
+												</div>
+											</div>
+										<?php endforeach; ?>
+									<?php else: ?>
+										<div class="notification-info">
+											<div class="text-center">
+												<h3>Não há solicitações pendentes</h3>
+											</div>
+										</div>
+									<?php endif; ?>
 								</div>
 								<div class="view-all-nots">
 									<a href="#" title="">View All Notification</a>
 								</div>
-							</div><!--nott-list end-->
-						</div><!--notification-box end-->
+							</div>
+						</div>
 					</li>
 				</ul>
-			</nav><!--nav end-->
+			</nav>
 			<div class="menu-btn">
 				<a href="#" title=""><i class="fa fa-bars"></i></a>
-			</div><!--menu-btn end-->
+			</div>
 			<div class="user-account">
 				<div class="user-info">
 					<img src="<?php echo getImage("profilesIcon.png"); ?>" alt="">
-					<a href="#" title="">John</a>
+					<a href="#" title="">Perfil</a>
 					<i class="la la-sort-down"></i>
 				</div>
 				<div class="user-account-settingss">

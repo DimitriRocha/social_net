@@ -6,13 +6,17 @@ loadResources();
 startProjectSchemas();
 startViews();
 
-$data;
+global $data;
 $css;
 $scripts;
 $view;
 
 //Declaração das funções de includes
 function loadAsset($path){
+	include(PROJECT_ROOT."assets".DIRECTORY_SEPARATOR.$path);
+}
+
+function loadImage($path){
 	include(PROJECT_ROOT."assets".DIRECTORY_SEPARATOR.$path);
 }
 
@@ -62,12 +66,12 @@ function startProjectFolderByRequest(){
 	global $css;
 	global $scripts;
 
-	$cssPath = "public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."style.css";
+	$cssPath = "/public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."style.css";
 	$css[] = "<link rel='stylesheet' href='$cssPath'>";
 
 	$view[] = glob(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."view.php")[0];
 
-	$scriptPath = "public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."main.js";
+	$scriptPath = "/public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR.$pathName.DIRECTORY_SEPARATOR."main.js";
 	$scripts[] = "<script src='$scriptPath'></script>";
 }
 
@@ -92,7 +96,7 @@ function startProjectCss(){
 	{
 		$filename = explode(DIRECTORY_SEPARATOR, $filepath);
 		$filename = end($filename);
-		$cssImportStr = "assets".DIRECTORY_SEPARATOR."css".DIRECTORY_SEPARATOR.$filename;
+		$cssImportStr = "/assets".DIRECTORY_SEPARATOR."css".DIRECTORY_SEPARATOR.$filename;
 		$css[] = "<link rel='stylesheet' href='$cssImportStr'>";
 	}
 }
@@ -103,7 +107,7 @@ function startProjectJs(){
 	{
 		$filename = explode(DIRECTORY_SEPARATOR, $filepath);
 		$filename = end($filename);
-		$scriptsImportStr = "assets".DIRECTORY_SEPARATOR."js".DIRECTORY_SEPARATOR.$filename;
+		$scriptsImportStr = "/assets".DIRECTORY_SEPARATOR."js".DIRECTORY_SEPARATOR.$filename;
 		$scripts[] = "<script src='$scriptsImportStr'></script>";
 	}
 }
@@ -122,7 +126,6 @@ function importComponent($viewName){
 	if (! @include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR."components".DIRECTORY_SEPARATOR.$viewName.DIRECTORY_SEPARATOR."view.php")){
 		throw new Exception ('View file does not exist');
 	}else{
-
 		echo "<script>";
 		@include_once(PROJECT_ROOT."public".DIRECTORY_SEPARATOR."views".DIRECTORY_SEPARATOR."components".DIRECTORY_SEPARATOR.$viewName.DIRECTORY_SEPARATOR."main.js");
 		echo "</script>";

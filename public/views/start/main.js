@@ -1,7 +1,10 @@
+$(function () {
+	$('[data-toggle="tooltip"]').tooltip()
+});
+
 $(window).on("load", function() {
 	"use strict";
 
-	//lorenzo
 	$(document).on('change', '.btn-file :file', function() {
 		var input = $(this),
 		label = input.val().replace(/\\/g, '/').replace(/.*\//, '');
@@ -37,27 +40,6 @@ $(window).on("load", function() {
 		readURL(this);
 	});
 
-	$(".submit-post").on("click", function(){
-		var content = $("#newPost-description").val();
-		var imagemB64 = $("#img-upload").attr("src");
-
-		if(typeof imagemB64 == "undefined"){
-			alert("Sem imagem!");
-			return;
-		}
-
-		$.post("",{
-			postId : 0,
-			content: content,
-			image: imagemB64
-		},function(data){
-			console.log(data);
-		});
-
-		$(".post-popup.job_post").removeClass("active");
-		$(".wrapper").removeClass("overlay");
-	});
-
 	$(".btn-comment").on("click", function(){
 		if($(".comment-sec").is(":hidden")){
 			$(".comment-sec").attr("hidden",false);;
@@ -73,7 +55,7 @@ $(window).on("load", function() {
 			alert("Escreva um comentario.");
 		} else {
 			$.post("",{
-				postId: 1,
+				postId: 'submitComment',
 				network_posts_id: network_posts_id,
 				content: content
 			},function(data){
@@ -84,39 +66,38 @@ $(window).on("load", function() {
 	});
 
 	$(".btn-like").on("click", function(){
-		var network_posts_id = $(".submit-comment").parent().prop('id');
-	console.log(network_posts_id);
-		$.post("",{
-			postId: 2,
-			network_posts_id: network_posts_id,
-		},function(data){
-			console.log(data);
-		});
+		var network_posts_id = $(this).parents(".post-bar").find(".comment_box").attr('id');
+		var postBar = $(this).parents(".post-bar");
+
+		if (postBar.find(".btn-like i").attr("data-user_liked") == 0) {
+			postBar.find(".btn-like i").attr("data-user_liked") == 1;
+			postBar.find(".btn-like i").css("color", "#ff5555");
+			let total_likes = postBar.find(".total_likes .likes_num").text();
+			let new_total_likes = parseInt(total_likes) + 1;
+			postBar.find(".total_likes .likes_num").text(new_total_likes);
+		}
+		
+		$.post(
+			"",
+			{
+				postId: 'likePost',
+				network_posts_id: network_posts_id,
+			},
+			function(data){
+				eventPostLiked(postBar);
+			}
+		);
 	});
+
+
 
 	$(".btn-logOut").on("click", function(){
 		$.post("",{
-			postId: -1
+			postId: "logOut"
 		},function(data){
 			console.log(data);
 		});
 	});
-	//endlorenzo
-
-	//  ============= POST PROJECT POPUP FUNCTION =========
-
-	// $(".post_project").on("click", function(){
-	//     $(".post-popup.pst-pj").addClass("active");
-	//     $(".wrapper").addClass("overlay");
-	//     return false;
-	// });
-	// $(".post-project > a").on("click", function(){
-	//     $(".post-popup.pst-pj").removeClass("active");
-	//     $(".wrapper").removeClass("overlay");
-	//     return false;
-	// });
-
-	//  ============= POST JOB POPUP FUNCTION =========
 
 	$(".post-jb").on("click", function(){
 		$(".post-popup.job_post").find('input:text').val('');
@@ -137,8 +118,6 @@ $(window).on("load", function() {
 		return false;
 	});
 
-	//  ============= SIGNIN CONTROL FUNCTION =========
-
 	$('.sign-control li').on("click", function(){
 		var tab_id = $(this).attr('data-tab');
 		$('.sign-control li').removeClass('current');
@@ -147,8 +126,6 @@ $(window).on("load", function() {
 		$("#"+tab_id).addClass('current animated fadeIn');
 		return false;
 	});
-
-	//  ============= SIGNIN TAB FUNCTIONALITY =========
 
 	$('.signup-tab ul li').on("click", function(){
 		var tab_id = $(this).attr('data-tab');
@@ -159,8 +136,6 @@ $(window).on("load", function() {
 		return false;
 	});
 
-	//  ============= SIGNIN SWITCH TAB FUNCTIONALITY =========
-
 	$('.tab-feed ul li').on("click", function(){
 		var tab_id = $(this).attr('data-tab');
 		$('.tab-feed ul li').removeClass('active');
@@ -170,14 +145,10 @@ $(window).on("load", function() {
 		return false;
 	});
 
-	//  ============= COVER GAP FUNCTION =========
-
 	var gap = $(".container").offset().left;
 	$(".cover-sec > a, .chatbox-list").css({
 		"right": gap
 	});
-
-	//  ============= OVERVIEW EDIT FUNCTION =========
 
 	$(".overview-open").on("click", function(){
 		$("#overview-box").addClass("open");
@@ -190,8 +161,6 @@ $(window).on("load", function() {
 		return false;
 	});
 
-	//  ============= EXPERIENCE EDIT FUNCTION =========
-
 	$(".exp-bx-open").on("click", function(){
 		$("#experience-box").addClass("open");
 		$(".wrapper").addClass("overlay");
@@ -203,8 +172,6 @@ $(window).on("load", function() {
 		return false;
 	});
 
-	//  ============= EDUCATION EDIT FUNCTION =========
-
 	$(".ed-box-open").on("click", function(){
 		$("#education-box").addClass("open");
 		$(".wrapper").addClass("overlay");
@@ -215,8 +182,6 @@ $(window).on("load", function() {
 		$(".wrapper").removeClass("overlay");
 		return false;
 	});
-
-	//  ============= LOCATION EDIT FUNCTION =========
 
 	$(".lct-box-open").on("click", function(){
 		$("#location-box").addClass("open");
@@ -349,3 +314,9 @@ $(window).on("load", function() {
 		e.stopPropagation();
 	});
 });
+
+
+function eventPostLiked(context){
+	//debugger;
+
+}

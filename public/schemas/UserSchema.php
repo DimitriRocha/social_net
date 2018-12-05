@@ -18,11 +18,20 @@ class UsersSchema extends AppSchema{
 					$friendsString .= $friend;
 				}
 			}
-			
+
 			$result = $this->db_con->query("SELECT * FROM `users` WHERE id NOT IN($id, $friendsString) ORDER BY RAND() LIMIT 0,10")->fetchAll(PDO::FETCH_ASSOC);
 		}else{
 			$result = $this->db_con->query("SELECT * FROM `users` WHERE id NOT IN($id) ORDER BY RAND() LIMIT 0,10")->fetchAll(PDO::FETCH_ASSOC);
 		}
+		return $result;
+	}
+
+	function getUserByID($id){
+		$result = $this->db_con->query(
+			"SELECT *
+			 FROM `users`
+			 WHERE id = $id"
+			 )->fetch(PDO::FETCH_ASSOC);
 		return $result;
 	}
 }
