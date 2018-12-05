@@ -22,7 +22,7 @@ class NetworkPostsSchema extends AppSchema{
 					$friendsString .= $friend;
 				}
 			}
-			$pdoQuery = "SELECT network_posts.id AS post_id, name, user, content, img_name, date
+			$pdoQuery = "SELECT network_posts.id AS post_id, users.id AS user_id, name, user, content, img_name, date
 			FROM network_posts
 			LEFT JOIN users ON network_posts.user_id = users.id
 			LEFT JOIN post_likes ON network_posts.id = post_likes.network_posts_id
@@ -31,7 +31,7 @@ class NetworkPostsSchema extends AppSchema{
 			ORDER BY network_posts.id DESC
 			LIMIT 10;";
 		}else{
-			$pdoQuery = "SELECT network_posts.id AS post_id, name, user, content, img_name, date
+			$pdoQuery = "SELECT network_posts.id AS post_id, users.id AS user_id, name, user, content, img_name, date
 			FROM network_posts
 			LEFT JOIN users ON network_posts.user_id = users.id
 			LEFT JOIN post_likes ON network_posts.id = post_likes.network_posts_id

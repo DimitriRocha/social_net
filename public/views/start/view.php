@@ -55,11 +55,13 @@
 											<div class="post-bar">
 												<div class="post_topbar">
 													<div class="usy-dt">
-														<img class="profile-postImg" src="<?php echo getImage("profilePlaceholder.jpg"); ?>" alt="">
-														<div class="usy-name">
-															<h3><?php print_r($result['name']); ?></h3>
-															<span><img src="images/clock.png" alt=""><?php echo date("d/m/Y", strtotime($result['date'])); ?></span>
-														</div>
+														<a href="<?php echo PROJECT_PATH."/start/profile/$result[user_id]" ?>">
+															<img class="profile-postImg" src="<?php echo getImage("profilePlaceholder.jpg"); ?>" alt="">
+															<div class="usy-name">
+																<h3><?php print_r($result['name']); ?></h3>
+																<span><img src="images/clock.png" alt=""><?php echo date("d/m/Y", strtotime($result['date'])); ?></span>
+															</div>
+														</a>
 													</div>
 													<div class="ed-opts">
 														<a href="#" title="" class="ed-opts-open"><i class="la la-ellipsis-v"></i></a>

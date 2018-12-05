@@ -45,7 +45,6 @@ class StartController extends AppController{
 			}
 		}
 
-
 		$sentRequests = $this->RelationsSchema->getSentRequests($_SESSION['user']['id']);
 		$notRecomended = array_merge($friends, $pf2);
 		$notRecomended = array_merge($notRecomended, $sentRequests);
