@@ -48,10 +48,10 @@ $(window).on("load", function() {
 	});
 
 	$(".btn-comment").on("click", function(){
-		if($(this).parents(".post-bar").find(".comment-sec").css("display") == 'none'){
-			$(this).parents(".post-bar").find(".comment-sec").slideDown(300);
+		if($(".comment-sec").is(":hidden")){
+			$(".comment-sec").attr("hidden",false);;
 		} else {
-			$(this).parents(".post-bar").find(".comment-sec").slideUp(300);
+			$(".comment-sec").attr("hidden",true);;
 		}
 	});
 

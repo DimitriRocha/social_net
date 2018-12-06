@@ -7,7 +7,7 @@ class UsersSchema extends AppSchema{
 		parent::db_config();
 	}
 
-	function getSugestedFriends($id, $friends){
+	public function getSugestedFriends($id, $friends){
 		if (!empty($friends)) {
 			$friendsString = "";
 			$lastFriend = end($friends);
@@ -26,12 +26,22 @@ class UsersSchema extends AppSchema{
 		return $result;
 	}
 
-	function getUserByID($id){
-		$result = $this->db_con->query(
-			"SELECT *
-			 FROM `users`
-			 WHERE id = $id"
-			 )->fetch(PDO::FETCH_ASSOC);
+	public function getUserByID($id){
+		$stmt = $this->db_con->query("SELECT *
+			FROM `users`
+			WHERE id = $id"
+		);
+		$result = $stmt->fetch(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
+	public function searchUser($searchQuery){
+		$searchQuery = "%$searchQuery%";
+		$stmt = $this->db_con->prepare("SELECT * FROM `users` WHERE name LIKE :searchQuery");
+		$stmt->bindParam(':searchQuery', $searchQuery, PDO::PARAM_STR, 30);
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
 		return $result;
 	}
 }

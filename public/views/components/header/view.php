@@ -3,11 +3,11 @@
 	<div class="container clearfix">
 		<div class="header-data">
 			<div class="logo">
-				<a href="index.html" title=""> <h2 class="text-white">Logo</h2> </a>
+				<a href="<?php echo PROJECT_PATH."/" ?>" title=""> <h2 class="text-white">SN</h2> </a>
 			</div><!--logo end-->
 			<div class="search-bar">
-				<form>
-					<input type="text" name="search" placeholder="Search...">
+				<form id="searchForm" action="<?php echo PROJECT_PATH."/search/user/" ?>" method="POST">
+					<input id="searchInput" type="text" name="search" placeholder="Pesquisar...">
 					<button type="submit"><i class="la la-search"></i></button>
 				</form>
 			</div><!--search-bar end-->
@@ -22,12 +22,12 @@
 					<li>
 						<a href="#" title="" class="not-box-open">
 							<span><img src="<?php echo "../".getImage("lightningIcon.png"); ?>" alt=""></span>
-							Notification
+							Notificação
 						</a>
 						<div class="notification-box">
-							<div class="nt-title">
+							<!-- <div class="nt-title">
 								<a href="#" title="">Rejeitar todos</a>
-							</div>
+							</div> -->
 							<div class="nott-list">
 								<div class="notfication-details">
 									<?php if (!empty($data['pendingFriends'])): ?>
@@ -51,7 +51,7 @@
 									<?php endif; ?>
 								</div>
 								<div class="view-all-nots">
-									<a href="#" title="">View All Notification</a>
+									<!-- <a href="#" title="">View All Notification</a> -->
 								</div>
 							</div>
 						</div>
@@ -68,7 +68,7 @@
 					<i class="la la-sort-down"></i>
 				</div>
 				<div class="user-account-settingss">
-					<h3>Online Status</h3>
+					<!-- <h3>Online Status</h3>
 					<ul class="on-off-status">
 						<li>
 							<div class="fgt-sec">
@@ -95,14 +95,14 @@
 							<input type="text" name="search">
 							<button type="submit">Ok</button>
 						</form>
-					</div><!--search_form end-->
+					</div>
 					<h3>Setting</h3>
 					<ul class="us-links">
 						<li><a href="profile-account-setting.html" title="">Account Setting</a></li>
 						<li><a href="#" title="">Privacy</a></li>
 						<li><a href="#" title="">Faqs</a></li>
 						<li><a href="#" title="">Terms &amp; Conditions</a></li>
-					</ul>
+					</ul> -->
 					<h3 class="tc"><a href="" title="" class="btn-logOut">Logout</a></h3>
 				</div><!--user-account-settingss end-->
 			</div>

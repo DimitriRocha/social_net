@@ -13,13 +13,13 @@ class StartController extends AppController{
 		$this->PostLikesSchema = new PostLikesSchema();
 
 		$this->auth();
-	}
 
-	public function index(){
 		if ($_SERVER['REQUEST_METHOD'] == "POST" && isset($_POST['postId'])) {
 			$this->handleRequest($_POST['postId']);
 		}
+	}
 
+	public function index(){
 		$friends = $this->RelationsSchema->getFriends($_SESSION['user']['id']);
 
 		$pendingFriendsIds = $this->RelationsSchema->getPendingFriends($_SESSION['user']['id']);
@@ -64,8 +64,19 @@ class StartController extends AppController{
 	}
 
 	public function profile($profileId){
-		//$friends = $this->RelationsSchema->getFriends($_SESSION['user']['id']);
+		$loggedUserFriends = $this->RelationsSchema->getFriends($_SESSION['user']['id']);
+		$friends = $this->RelationsSchema->getFriends($profileId);
 		$profile = $this->UsersSchema->getUserByID($profileId);
+
+		$pendingFriendsIds = $this->RelationsSchema->getPendingFriends($_SESSION['user']['id']);
+		$pendingFriends = [];
+		$pf2 = [];
+		foreach ($pendingFriendsIds as $key => $pendingFriend) {
+			$pendingFriends[$key] = $this->UsersSchema->getUserByID($pendingFriend['userAdded']);
+			$pf2[] = $pendingFriend['userAdded'];
+			$pendingFriends[$key]['relationId'] = $pendingFriend['relationId'];
+		}
+
 
 		// $results = $this->NetworkPostsSchema->getPostsMainPage($friends);
 		$results = $this->NetworkPostsSchema->getPostsProfilePage($profileId);
@@ -81,15 +92,35 @@ class StartController extends AppController{
 			}
 		}
 
+		$sentRequests = $this->RelationsSchema->getSentRequests($_SESSION['user']['id']);
+		$relationId = null;
+		$friendshipStatus = null;
+		if(in_array($profileId , $pf2)){
+			foreach ($pendingFriends as $key => $request) {
+				if ($request['id'] == $profileId) {
+					$relationId = $pendingFriend['relationId'];
+				}
+			}
+			$friendshipStatus = 'pending';
+		}elseif (in_array($profileId , $sentRequests)) {
+			$friendshipStatus = 'waiting';
+		}elseif (in_array($profileId , $loggedUserFriends)) {
+			$friendshipStatus = 'friend';
+		}
+
 		set([
+			'profileId' => $profileId,
 			'result' => $results,
 			'sugested' => null,
-			'friends' => null,
+			'friends' => $friends,
+			'pendingFriends' => $pendingFriends,
 			'dispayName' => $profile['name'],
 			'occupation' => $profile['occupation'],
 			'createPost' => false,
 			'addCurrentFriend' => $profileId,
-			'loggedUser' => $_SESSION['user']['id']
+			'loggedUser' => $_SESSION['user']['id'],
+			'friendshipStatus' => $friendshipStatus,
+			'relationId' => $relationId
 		]);
 	}
 
@@ -156,6 +187,14 @@ class StartController extends AppController{
 	public function saveComment($post_id, $content){
 		$dataArray = array($_SESSION['user']['id'], $post_id, $content, date("Y-m-d H:i:s"));
 		$result = $this->NetworkPostsSchema->insertComment($dataArray);
+		if ($result) {
+			echo json_encode([
+				"name" => $_SESSION['user']['name'],
+				"conteudo" => $content,
+				"date" => date("d/m/Y")
+			]);
+		}
+		die();
 	}
 
 	public function addUser($id){

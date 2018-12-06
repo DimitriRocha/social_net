@@ -44,6 +44,11 @@ class RelationsSchema extends AppSchema{
 		return $result;
 	}
 
+	public function getCompleteSentRequests($id){
+		$result = $this->db_con->query("SELECT * FROM `relations` WHERE user_id1 = $id AND accepted = 0")->fetchAll(PDO::FETCH_ASSOC);
+		return $result;
+	}
+
 	public function addFriend($loggedUser, $id){
 		$now = time();
 		$result = $this->db_con->query(

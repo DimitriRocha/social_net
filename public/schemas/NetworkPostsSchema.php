@@ -107,7 +107,7 @@ class NetworkPostsSchema extends AppSchema{
 		}
 
 		$pdoQuery = "INSERT INTO post_comments (user_id, network_posts_id, comment, comment_date)
-		VALUES (?,?,?,?);";
+		VALUES (?,?,?,?)";
 
 		try {
 			$preparedStatement = $this->db_con->prepare($pdoQuery);

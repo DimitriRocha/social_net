@@ -21,18 +21,22 @@
 										</div>
 									</div>
 									<ul class="user-fw-status">
-										<li>
-											<h4>Amigos</h4>
-											<span><?php echo (!empty($data['friends']) ? count($data['friends']) : 0); ?></span>
-										</li>
+										<a href="<?php echo PROJECT_PATH."/search/friends/".$_SESSION['user']['id'] ?>">
+											<li>
+												<h4>Amigos</h4>
+												<span><?php echo (!empty($data['friends']) ? count($data['friends']) : 0); ?></span>
+											</li>
+										</a>
 									</ul>
 								</div>
-								<div class="tags-sec full-width">
-									<ul>
-										<li><a href="<?php echo PROJECT_PATH."/start/profile/$data[loggedUser]" ?>" title="">Meu perfil</a></li>
-										<li><a href="" title="" class="btn-logOut">Sair</a></li>
-									</ul>
-								</div>
+								<?php if ($data['createPost']): ?>
+									<div class="tags-sec full-width">
+										<ul>
+											<li><a href="<?php echo PROJECT_PATH."/start/profile/$data[loggedUser]" ?>" title="">Meu perfil</a></li>
+											<li><a href="" title="" class="btn-logOut">Sair</a></li>
+										</ul>
+									</div>
+								<?php endif; ?>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-8 no-pd">
@@ -81,22 +85,17 @@
 																<i class="la la-heart"
 																data-user_liked="<?php echo ( $result['user_liked'] ? 1 : 0 ) ?>"
 																style="color:<?php echo ( $result['user_liked'] ? '#ff5555' : '#000' ) ?>"></i>
-																Like
+																Like (<span class="likes_num"><?php echo $result['num_likes']?></span>)
 															</a>
 														</li>
 														<li>
-															<a class="btn-comment"><i class="la la-globe"></i> Commentar</a>
+															<a class="btn-comment"><i class="la la-globe"></i> Comentários (<span class="comment-num"><?php echo count($result['comments']) ?></span>)</a>
 														</li>
 													</ul>
-													<a class="total_likes" data-toggle="tooltip" data-placement="top" title="Número de Likes">
-														<i class="la la-heart"></i>
-														Likes <span class="likes_num"><?php echo $result['num_likes']?></span>
-													</a>
 												</div>
 												<div class="comment-section">
-													<div class="comment-sec" hidden>
+													<div class="comment-sec" style="display:none">
 														<ul class="comment-list">
-
 															<?php foreach ($result['comments'] as $key => $comment) :?>
 																<li class="comment">
 																	<h3><?php echo $comment['name'] ?></h3>
@@ -108,14 +107,14 @@
 													</div>
 													<div id="<?php echo $result['post_id'];?>" class="comment_box">
 														<input type="text" class="text_comment">
-														<button type="button" class="btn btn-secondary submit-comment">Comment</button>
+														<button type="button" class="btn btn-secondary submit-comment">Comentar</button>
 													</div>
 
 												</div>
 											</div>
 										<?php endforeach;?>
 									<?php else: ?>
-										<div class="container text-center"><h4>Não há posts disponíveis</h4></div>
+										<div class="container text-center bg-light p-4"><h4>Não há posts disponíveis</h4></div>
 									<?php endif; ?>
 								</div>
 							</div>
@@ -127,7 +126,6 @@
 										<div class="sd-title clearfix">
 											<div class="clearfix">
 												<h3 class="mb-2">Recomendações de amigos</h3>
-												<i class="la la-ellipsis-v"></i>
 											</div>
 											<?php if (!empty($data['sugested'])): ?>
 												<?php foreach ($data['sugested'] as $key => $user): ?>
@@ -143,16 +141,46 @@
 												</div>
 											<?php endif; ?>
 										</div>
+									<?php elseif($data['addCurrentFriend'] != $data['loggedUser']): ?>
+										<?php if ($data['friendshipStatus'] == 'friend'): ?>
+											<div class="sd-title clearfix text-center">
+												<div class="clearfix">
+													<h3 class="mb-2">Amigo adicionado</h3>
+												</div>
+											</div>
+										<?php elseif($data['friendshipStatus'] == 'pending'): ?>
+											<div class="sd-title clearfix text-center">
+												<div class="clearfix">
+													<h3 class="mb-2">Adicionar amigo</h3>
+												</div>
+												<div style="width:fit-content" class="mx-auto">
+													<a href="<?php echo PROJECT_PATH."/start/acceptFriend/".$data['relationId'] ?>" class="btn btn-info mx-auto">Aceitar amizade</a>
+												</div>
+											</div>
+										<?php elseif($data['friendshipStatus'] == 'waiting'): ?>
+											<div class="sd-title clearfix text-center">
+												<div class="clearfix">
+													<h3 class="mb-2">Aguardando resposta de amizade</h3>
+												</div>
+											</div>
+										<?php else: ?>
+											<div class="sd-title clearfix">
+												<div class="clearfix text-center">
+													<h3 class="mb-2">Adicionar amigo</h3>
+												</div>
+												<div style="width:fit-content" class="mx-auto">
+													<a href=<?php echo PROJECT_PATH."/start/adduser/".$data['profileId'] ?> class="btn btn-primary">Adicionar</a>
+												</div>
+											</div>
+										<?php endif; ?>
 									<?php else: ?>
 										<div class="sd-title clearfix">
 											<div class="clearfix">
-												<h3 class="mb-2">Adicionar</h3>
-												<i class="la la-ellipsis-v"></i>
+												<h3 class="mb-2">Seu perfil</h3>
 											</div>
 											<div class="mt-3 clearfix">
 												<span class="d-none user_id"><?php echo $data['addCurrentFriend'] ?></span>
 												<span class="float-left"><?php echo $data['dispayName']; ?></span>
-												<span class="float-right"><a href="<?php echo PROJECT_PATH."/start/adduser/$data[addCurrentFriend]" ?>">Adicionar</a></span>
 											</div>
 										</div>
 									<?php endif; ?>
